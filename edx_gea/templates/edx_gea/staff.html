@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="gea_xblock">
+    <p hidden='true' class='waiting' >
+        {% trans "Please wait a few minutes, file is being uploaded." %}
+        <img  id='spinner' src="{{ spinner_url }}" alt="spinner"  height="20" width="20">
+    </p>
+    {{ upload_assessment_file_form.as_p }}
+    <p>Note:
+        <i> {%blocktrans%}The csv file sould not exceed {{ max_assessment_file_lines }} lines.{%endblocktrans%}</i>
+        <i> {%blocktrans%}If you have more than {{ max_assessment_file_lines }} students to grade, upload the assessment file in smaller chunks.{%endblocktrans%}</i>
+    </p>
+    <div class="upload_assessments_response"></div>
+</div>

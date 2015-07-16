@@ -1,1 +1,11 @@
 /* CSS for GeaXBlock */
+
+.gea_xblock .errorlist {
+    color: red;
+}
+.gea_xblock .gea_success {
+    color: green;
+}
+.gea_xblock #spinner {
+    left-margin: 3px;
+}

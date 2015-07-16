@@ -1,0 +1,17 @@
+{% load i18n %}
+<p>
+    {% if score %}
+        <p>
+            {% trans "Grade: " %}
+            <b>{{ score.points_earned }}/{{ score.points_possible}}</b>
+        </p>
+        {% if comment %}
+            <p>
+                 {% trans "Comment: " %}
+                <i>{{ comment }}</i>
+            </p>
+        {% endif %}
+    {% else %}
+        {% trans "Activity not graded yet." %}
+    {% endif %}
+</p>

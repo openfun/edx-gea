@@ -1,11 +1,13 @@
 import csv
+import datetime
 from mock import Mock
 import tempfile
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test.client import RequestFactory
+from django.test.client import RequestFactory, RequestFactory
 
-from courseware.grades import iterate_grades_for
+from courseware.grades import iterate_grades_for, _grade
+from courseware.tests.factories import StudentModuleFactory
 from student.tests.factories import UserFactory, CourseEnrollmentFactory
 
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
@@ -13,18 +15,17 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from edx_gea.forms import UploadAssessmentFileForm
 
-
 class GradeExternalActivityXBlockTests(ModuleStoreTestCase):
     def setUp(self):
         super(GradeExternalActivityXBlockTests, self).setUp(create_user=False)
-        self.course = CourseFactory.create(grading_policy={
-            "GRADER": [{
-                "type": "Homework",
-                "min_count": 1,
-                "drop_count": 0,
-                "short_label": "HW",
-                "weight": 1.0
-            }]})
+        self.course = CourseFactory.create(grading_policy={"GRADER": [{"type": "Homework",
+                                                                       "min_count": 1,
+                                                                       "drop_count": 0,
+                                                                       "short_label": "HW",
+                                                                       "weight": 1.0}]},
+                                           metadata={'start': datetime.datetime.now() - datetime.timedelta(days=1)}
+        )
+
         self.gea_xblock = None
         self.generate_modules_tree(self.course, 'chapter', 'sequential',
                                    'vertical', 'edx_gea')
@@ -108,3 +109,17 @@ class GradeExternalActivityXBlockTests(ModuleStoreTestCase):
         form = self.generate_form("Joe, 100")
         errors = self.get_form_errors(form)
         self.assertIn("100", errors)
+
+    def test_edx_grade_with_no_score_but_problem_loaded(self):
+        """Test grading with an already loaded problem but without score.
+
+        This can happen when the student calls the progress page from the courseware (djangoapps.courseware.views.progress).
+        The progress view grades the activity only to get the current score but staff may have not given the problem a score yet.
+        """
+        request = RequestFactory().get('/')
+        user = UserFactory(username='Joe')
+        CourseEnrollmentFactory.create(course_id=self.course.id,
+                                       user=user)
+        StudentModuleFactory.create(student=user, course_id=self.course.id, module_state_key=str(self.gea_xblock.location))
+        grade = _grade(user, request, self.course, None)
+        self.assertEqual(grade['percent'], 0.0)

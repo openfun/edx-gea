@@ -43,14 +43,7 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
         scope=Scope.settings
     )
 
-    weight = Float(
-        display_name="Problem Weight",
-        help=("Defines the number of points each problem is worth. "
-              "If the value is not set, the problem is worth the sum of the "
-              "option point values."),
-        values={"min": 0, "step": .1},
-        scope=Scope.settings
-    )
+    weight = None #: needed by courseware.grades.get_score. (We don't use it.)
 
     editable_fields = ('points',)
 
@@ -130,5 +123,9 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
         return getattr(self.xmodule_runtime, 'user_is_staff', False)
 
     def max_score(self):
+        """Return the max score of the external activity.
+
+        Also called by courseware.grades.get_score function.
+        """
         return self.points
 

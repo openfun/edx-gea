@@ -34,6 +34,10 @@ msgstr "Ligne %(line)s : %(error_description)s"
 msgid "Score %s is not a valid number."
 msgstr "La note %s n'est pas un nombre valide."
 
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:52
+msgid "Score %s is not an integer."
+msgstr "La note %s n'est pas un entier."
+
 #: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:55
 msgid "Score %s is outside score limits."
 msgstr "Le score %s est en dehors du barème."

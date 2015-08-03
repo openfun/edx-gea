@@ -49,9 +49,11 @@ class UploadAssessmentFileForm(forms.Form):
 
     def check_score(self, line, score):
         try:
-            score = float(score)
-        except (ValueError, TypeError):
+            score = int(score)
+        except TypeError:
             self.add_form_error(line, _(u"Score %s is not a valid number.") % score)
+        except ValueError:
+            self.add_form_error(line, _(u"Score %s is not an integer.") % score)
         else:
             if not 0 <= score <= self.gea_xblock.max_score():
                 self.add_form_error(line, _(u"Score %s is outside score limits.") % score)

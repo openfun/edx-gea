@@ -25,17 +25,21 @@ Installation
      to OPTIONAL_APPS
 
 3. Enable the GEA component in LMS and Studio (CMS).
-
-   -  In ``/edx/app/edxapp/edx-platform/cms/envs/common.py``, add ``'edx_gea',`` to ``ADVANCED_COMPONENT_TYPES``
-
+   
+ .. image:: docs/_static/images/confgea.png
+	    
+ .. image:: _static/images/confgea.png
+   
 Create the GEA XBlock in edX Studio
 -----------------------------------
 #. Since the Grade External Activity doesn't support text within the problem, 
    it is recommended to precede the GEA XBlock with a Text or HTML XBlock with 
    instructions for the student describing the external activity.
-   
-   .. figure:: _static/images/gea-assessment-cms.png
-	       :alt: Studio view of the Gea XBlock
+
+   .. image:: docs/_static/images/gea-assessment-cms.png
+	      
+   .. image:: _static/images/gea-assessment-cms.png
+
    
 #. Set the `Maximum Grade` setting.
 
@@ -43,9 +47,9 @@ Create the GEA XBlock in edX Studio
    | Maximum Grade  | Maximum grade of the external activity.                         |
    +----------------+-----------------------------------------------------------------+
 
-   .. figure:: _static/images/gea-assessment-cms_settings.png
-	       :alt: Studio settings.
+   .. image:: docs/_static/images/gea-assessment-cms_settings.png
 
+   .. image:: _static/images/gea-assessment-cms_settings.png
 
 Staff Grading
 -------------
@@ -57,10 +61,12 @@ Staff Grading
    +----------+-------+----------+
    
    An example:
-   
-	.. figure:: _static/images/gea-assessment-file.png
-	   :alt: Csv assessment file.
 
+        .. image:: docs/_static/images/gea-assessment-file.png
+	   :alt: Csv assessment file.
+		 
+        .. image:: _static/images/gea-assessment-file.png
+		   
    .. note:: Comments are optionnal.
 
 #. Navigate to the student view (LMS) of the course and find your Grade External Activity block. (If you are in Studio, click "View Live").
@@ -68,30 +74,36 @@ Staff Grading
 #. If you are Course Staff or an Instructor for the course, you will see the interface
    for submitting the assessment file.
    
-   .. figure:: _static/images/gea-assessment-lms.png
+   .. image:: docs/_static/images/gea-assessment-lms.png
       :alt: Staff view of LMS interface
+	    
+   .. image:: _static/images/gea-assessment-lms.png
 
 #. Upload the file, and wait for a few seconds. In case of errors in the assessment file,
    a list of errors will be displayed. Correct the file and upload it again.
-   
-   .. figure:: _static/images/gea-assessment-lms-error.png
+
+   .. image:: docs/_static/images/gea-assessment-lms-error.png
       :alt: Errors in assessment file.
+	    
+   .. image:: _static/images/gea-assessment-lms-error.png	    
 
 #. You are done. All students have just been graded !
-   
-   .. figure:: _static/images/gea-assessment-lms-good.png
+
+   .. image:: docs/_static/images/gea-assessment-lms-good.png
       :alt: Success assessment done.
+
+   .. image:: _static/images/gea-assessment-lms-good.png
 	    
 .. toctree::
    :maxdepth: 2
-
-   references
 
 Student LMS Interface
 ---------------------
 Students will see their assessments in the same XBlock:
 
-  .. figure:: _static/images/gea-assessment-lms_student.png
+  .. image:: docs/_static/images/gea-assessment-lms_student.png
      :alt: Student view GEA XBlock.
+
+  .. image:: _static/images/gea-assessment-lms_student.png
 
 .. note:: The grade is also displayed in the Progress page of the course.

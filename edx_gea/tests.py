@@ -29,6 +29,7 @@ class GradeExternalActivityXBlockTests(ModuleStoreTestCase):
         self.gea_xblock = None
         self.generate_modules_tree(self.course, 'chapter', 'sequential',
                                    'vertical', 'edx_gea')
+        self.gea_xblock.csv_delimiter = ','
 
     def test_staff_view_is_called(self):
         self.gea_xblock.xmodule_runtime = Mock()
@@ -77,7 +78,7 @@ class GradeExternalActivityXBlockTests(ModuleStoreTestCase):
         return str(form._errors['assessment_file'])
 
     def generate_form(self, raw_text):
-        return UploadAssessmentFileForm(RequestFactory(),
+        return UploadAssessmentFileForm({'csv_delimiter' : ','},
                                         files={'assessment_file' : SimpleUploadedFile('lol.csv', raw_text)},
                                         auto_id=True,
                                         gea_xblock=self.gea_xblock)

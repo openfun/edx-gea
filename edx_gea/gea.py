@@ -18,7 +18,7 @@ from xblock.fragment import Fragment
 from xblockutils.studio_editable import StudioEditableXBlockMixin
 from xblockutils.resources import ResourceLoader
 
-from .forms import UploadAssessmentFileForm
+from .forms import UploadAssessmentFileForm, get_default_delimiter
 from .gea_assessment import GeaAssessment, Score
 
 
@@ -51,6 +51,8 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
 
     max_assessment_file_lines = 1000 #: The limit of csv lines in the uploded assessment file.
 
+    csv_delimiter = None #: The csv delimiter used in the uploaded assessment file.
+
     def student_view(self, context=None):
         """Display the student assessment (score and comment).
 
@@ -71,7 +73,7 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
         """Display the form for uploading the assessement file."""
         spinner_url = self.runtime.local_resource_url(self, 'public/static/images/spinner.gif')
         frag = Fragment(loader.render_template("templates/edx_gea/staff.html",
-                                               {'upload_assessment_file_form' : UploadAssessmentFileForm(auto_id=True),
+                                               {'upload_assessment_file_form' : UploadAssessmentFileForm(auto_id=True, initial={'csv_delimiter' : get_default_delimiter()}),
                                                 'spinner_url' : spinner_url,
                                                 'max_assessment_file_lines' : self.max_assessment_file_lines}))
         frag.add_css(loader.load_unicode("static/css/gea.css"))
@@ -90,6 +92,7 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
             raise PermissionDenied
 
         uploaded_file = request.POST['file'].file
+        self.csv_delimiter = request.POST['csv_delimiter']
         form = UploadAssessmentFileForm(request.POST, files={'assessment_file' : uploaded_file},
                                         auto_id=True, gea_xblock=self)
 
@@ -113,7 +116,8 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
         Args:
             file: The assessment file.
         """
-        assessment_file = csv.DictReader(file, ['username', 'score', 'comment'])
+        assessment_file = csv.DictReader(file, ['username', 'score', 'comment'],
+                                         delimiter=str(self.csv_delimiter))
         for row in assessment_file:
             gea_assessment = GeaAssessment(self.usernames[row['username']], self)
             gea_assessment.comment = row['comment']

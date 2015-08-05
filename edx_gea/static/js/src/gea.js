@@ -1,24 +1,29 @@
 function GeaXBlock(runtime, element) {
     var uploadUrl = runtime.handlerUrl(element, 'upload_assessments');
     var xblock_selector = 'div[data-usage-id="' + element.dataset.usageId +  '"] ';
-    var assessmentFile;
     
     $(function ($) { // On load.
-	assessmentFile = $(xblock_selector + '#assessment_file');
-	assessmentFile.change(upload_file);
+	assessmentButton = $(xblock_selector + '.upload-assessment-button');
+	assessmentButton.click(upload_file)
         var uploadUrl = runtime.handlerUrl(element, 'upload_assessments');
     });
 
     function upload_file() {
 	var xhr = new XMLHttpRequest();
 	var form = new FormData();
-	
+	var assessmentFile = $(xblock_selector + '[name="assessment_file"]');
+
+	if (assessmentFile.prop('files').length == 0)
+	    return;
+
 	$(xblock_selector + '.waiting').show();
-	
+
 	xhr.open('POST', uploadUrl);
 	xhr.setRequestHeader("X-CSRFToken", csrftoken);
-	form.append('file', assessmentFile.prop('files')[0]);
 	
+	form.append('file', assessmentFile.prop('files')[0]);
+	form.append('csv_delimiter', $(xblock_selector + '[name="csv_delimiter"]').val());
+
 	xhr.send(form);
 	xhr.onload = DisplayUploadAssessmentsResponse;
     }

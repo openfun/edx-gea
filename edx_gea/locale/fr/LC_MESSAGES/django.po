@@ -46,6 +46,18 @@ msgstr "Le score %s est en dehors du barème."
 msgid "Unsupported file extension."
 msgstr "Extension du fichier incorrecte"
 
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:28
+msgid "CSV delimiter"
+msgstr "Délimiteur CSV"
+
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:28
+msgid "Semicolon"
+msgstr "Point-virgule"
+
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:29
+msgid "Comma"
+msgstr "Virgule"
+
 #: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/gea.py:91
 msgid "Thank you, the students assessment has been done."
 msgstr "Merci, les évaluations des apprenants ont bien été prises en compte."
@@ -62,6 +74,10 @@ msgstr "L'utilisateur %s n'existe pas."
 msgid "User %s is not enrolled in this course."
 msgstr "L'utilisateur %s n'est pas inscrit à ce cours."
 
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/forms.py:47
+msgid "Student needs a score to be graded."
+msgstr "L'apprenant a besoin d'une note pour être noter."
+
 #: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/templates/edx_gea/form_errors.html:2
 msgid "The assessment file contains errors, please fix them, and upload the file again."
 msgstr "Le fichier d'évaluation contient des erreurs, veuillez les corriger et envoyer le fichier de nouveau."
@@ -74,6 +90,11 @@ msgstr "Veuillez patienter quelques minutes, le fichier est en cours d'envoi."
 #: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/templates/edx_gea/staff.html:9
 msgid "The csv file sould not exceed %(max_assessment_file_lines)s lines."
 msgstr "Le fichier csv ne doit pas dépasser %(max_assessment_file_lines)s lignes."
+
+#: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/templates/edx_gea/staff.html:8
+msgctxt "gea"
+msgid "Grade"
+msgstr "Noter"
 
 #: /edx/app/edxapp/venvs/edxapp/src/edx-gea/edx_gea/templates/edx_gea/staff.html:10
 msgid "If you have more than %(max_assessment_file_lines)s students to grade, upload the assessment file in smaller chunks."

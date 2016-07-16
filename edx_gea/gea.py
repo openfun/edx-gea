@@ -31,14 +31,16 @@ class GradeExternalActivityXBlock(XBlock, StudioEditableXBlockMixin):
     icon_class = 'problem'
 
     display_name = String(
-        default=ugettext_lazy('External Activity Grader'), scope=Scope.settings,
-        help="This name appears in the horizontal navigation at the top of "
+        display_name=ugettext_lazy(u"External Activity Grader"), 
+        default=u"External Activity Grader", 
+        scope=Scope.settings,
+        help=u"This name appears in the horizontal navigation at the top of "
              "the page."
     )
 
     points = Integer(
-        display_name=ugettext_lazy("Maximum grade"),
-        help=(ugettext_lazy("Maximum grade of the external activity.")),
+        display_name=ugettext_lazy(u"Maximum grade"),
+        help=(ugettext_lazy(u"Maximum grade of the external activity.")),
         default=10,
         scope=Scope.settings
     )

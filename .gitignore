@@ -2,5 +2,9 @@
 docs/build
 *.egg-info
 
+# Packaging
+build
+dist
+
 # Temporary files
 *.pyc

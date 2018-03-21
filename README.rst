@@ -7,18 +7,17 @@ Then through the same XBlock students will see their evaluation.
 
 .. image:: docs/_static/images/gea-assessment-lms_student.png
 
+.. image:: https://circleci.com/gh/openfun/edx-gea/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/openfun/edx-gea/tree/master
 
 Installation
 ~~~~~~~~~~~~
 
 1. Install edx-gea
-	
+
      .. code:: sh
-   
-          git clone https://github.com/openfun/edx-gea.git
-	  cd edx-gea
-	  pip install .
-	  
+          pip install --extra-index-url https://pypi.fury.io/openfun edx-gea
+
 2. Add edx\_gea to installed Django apps
 
    - In ``/edx/app/edxapp/edx-platform/cms/envs/common.py``, add ``'edx_gea'``
